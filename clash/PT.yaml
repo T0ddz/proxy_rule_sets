@@ -279,6 +279,7 @@ payload:
   - DOMAIN-SUFFIX,ubits.club
   - DOMAIN-KEYWORD,announce
   - DOMAIN-KEYWORD,chdbits
+  - DOMAIN-KEYWORD,agsvpt
   - DOMAIN-KEYWORD,m-team
   - DOMAIN-KEYWORD,torrent
   - DOMAIN-KEYWORD,tracker
