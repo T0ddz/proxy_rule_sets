@@ -9,6 +9,8 @@
 # IP-CIDR: 3
 # TOTAL: 272
 payload:
+  - DOMAIN,tracker.agsvpt.cn
+  - DOMAIN,agsvpt.trackers.work
   - DOMAIN,0123456789nonexistent.com
   - DOMAIN,0d.kebhana.mx
   - DOMAIN,1337.abcvg.info
@@ -274,10 +276,12 @@ payload:
   - DOMAIN-SUFFIX,u2.dmhy.org
   - DOMAIN-SUFFIX,uhdbits.org
   - DOMAIN-SUFFIX,xauat6.edu.cn
+  - DOMAIN-SUFFIX,ubits.club
   - DOMAIN-KEYWORD,announce
   - DOMAIN-KEYWORD,chdbits
   - DOMAIN-KEYWORD,m-team
   - DOMAIN-KEYWORD,torrent
+  - DOMAIN-KEYWORD,tracker
   - IP-CIDR,207.241.226.111/32,no-resolve
   - IP-CIDR,207.241.231.226/32,no-resolve
   - IP-CIDR,52.58.128.163/32,no-resolve
