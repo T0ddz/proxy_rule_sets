@@ -1,34 +1,39 @@
 /**
- * Plexamp AI 适配脚本 (修正版)
- * 作用：修改目标 Host、Body 模型参数，并强制修正 HTTP Host Header
+ * Plexamp AI 适配脚本 (最终修正版)
+ * 修复：解决重复 Host 头导致的 502 错误
  */
 
-// 1. 解析 Body
+// 1. 解析并修改 Body
 let body;
 try {
     body = JSON.parse($request.body);
+    body.model = "GLM-4.7"; // 强制修改模型
 } catch (e) {
-    $done({}); // 如果解析失败，直接放行（虽然通常会失败）
+    console.log("JSON 解析失败");
+    $done({}); 
 }
 
-// 2. 修改模型名称
-body.model = "GLM-4.7";
-
-// 3. 定义新的 Host
+// 2. 定义目标服务信息
 const targetHost = "coding-plan-endpoint.kuaecloud.net";
-
-// 4. 替换 URL
 const newUrl = $request.url.replace("api.openai.com", targetHost);
 
-// 5. 【关键】修改 Host Header
-// Loon 的 headers 对象可能是 Key-Value 形式，建议处理一下大小写兼容
+// 3. 处理 Headers (关键步骤)
 let headers = $request.headers;
-headers["Host"] = targetHost;
-headers["host"] = targetHost; // 为了保险，兼容部分小写处理的网关
 
-// 6. 发送修改后的请求
+// 遍历并删除所有可能存在的 Host 字段 (兼容不同的大小写)
+const keys = Object.keys(headers);
+for (let key of keys) {
+    if (key.toLowerCase() === 'host') {
+        delete headers[key];
+    }
+}
+
+// 重新设置单一的 Host
+headers["Host"] = targetHost;
+
+// 4. 发送请求
 $done({
     url: newUrl,
-    headers: headers, // 必须把修改后的 headers 传回去
+    headers: headers,
     body: JSON.stringify(body)
 });
