@@ -1,0 +1,19 @@
+#!name = Plexamp AI Redirect
+#!desc = 拦截 Plexamp 请求并转发至三方 OpenAI 接口，自动修改 Model 为 GLM-4.7。
+#!author = Gemini
+#!icon = https://raw.githubusercontent.com/Plexinc/Plexamp-Logos/master/Plexamp-Icon.png
+
+[Rule]
+# 确保请求不走代理缓存，直接触发脚本
+DOMAIN,api.openai.com,DIRECT
+
+[Script]
+# 使用 http-request 拦截并修改 body
+# requires-body=true 必须开启，否则无法读取并修改 model 字段
+plexamp_to_glm = type=http-request,pattern=^https:\/\/api\.openai\.com\/v1\/chat\/completions,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/你的用户名/你的仓库名/main/plexamp_ai.js
+
+# 或者直接使用内联脚本（推荐：省去托管多个文件的麻烦）
+http-request ^https:\/\/api\.openai\.com\/v1\/chat\/completions script-path=https://raw.githubusercontent.com/你的用户名/你的仓库名/main/plexamp_ai.js, requires-body=true, tag=Plexamp_AI_Task
+
+[MITM]
+hostname = api.openai.com
