@@ -8,6 +8,7 @@ let body;
 try {
     body = JSON.parse($request.body);
     body.model = "GLM-4.7"; // 强制修改模型
+    body.stream = false;
 } catch (e) {
     console.log("JSON 解析失败");
     $done({}); 
