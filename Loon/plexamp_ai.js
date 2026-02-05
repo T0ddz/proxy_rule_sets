@@ -1,24 +1,34 @@
 /**
- * Plexamp AI 适配脚本
- * 作用：修改目标 Host 并在 Body 中强制指定模型为 GLM-4.7
+ * Plexamp AI 适配脚本 (修正版)
+ * 作用：修改目标 Host、Body 模型参数，并强制修正 HTTP Host Header
  */
 
+// 1. 解析 Body
 let body;
 try {
     body = JSON.parse($request.body);
 } catch (e) {
-    console.log("Plexamp AI: 解析 Body 失败");
-    $done({});
+    $done({}); // 如果解析失败，直接放行（虽然通常会失败）
 }
 
-// 1. 修改模型名称
+// 2. 修改模型名称
 body.model = "GLM-4.7";
 
-// 2. 替换 URL 为三方服务地址
-const newUrl = $request.url.replace("api.openai.com", "coding-plan-endpoint.kuaecloud.net");
+// 3. 定义新的 Host
+const targetHost = "coding-plan-endpoint.kuaecloud.net";
 
-// 3. 这里的 $done 会将修改后的请求发往新地址
+// 4. 替换 URL
+const newUrl = $request.url.replace("api.openai.com", targetHost);
+
+// 5. 【关键】修改 Host Header
+// Loon 的 headers 对象可能是 Key-Value 形式，建议处理一下大小写兼容
+let headers = $request.headers;
+headers["Host"] = targetHost;
+headers["host"] = targetHost; // 为了保险，兼容部分小写处理的网关
+
+// 6. 发送修改后的请求
 $done({
     url: newUrl,
+    headers: headers, // 必须把修改后的 headers 传回去
     body: JSON.stringify(body)
 });
