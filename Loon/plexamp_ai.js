@@ -7,7 +7,7 @@
 let body;
 try {
     body = JSON.parse($request.body);
-    body.model = "GLM-4.7"; // 强制修改模型
+    body.model = "gpt-5.4"; // 强制修改模型
     body.stream = false;
 } catch (e) {
     console.log("JSON 解析失败");
@@ -15,7 +15,7 @@ try {
 }
 
 // 2. 定义目标服务信息
-const targetHost = "coding-plan-endpoint.kuaecloud.net";
+const targetHost = "cpa.t0dd.de";
 const newUrl = $request.url.replace("api.openai.com", targetHost);
 
 // 3. 处理 Headers (关键步骤)
