@@ -6,7 +6,7 @@ payload:
   # 分流节点须是香港节点
 
   # 地区检测
-  #- DOMAIN-SUFFIX,gspe1-ssl.ls.apple.com
+  - DOMAIN-SUFFIX,gspe1-ssl.ls.apple.com
 
   # 端口代理
   # 原 Shadowrocket:
