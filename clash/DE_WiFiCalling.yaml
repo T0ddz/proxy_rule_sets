@@ -1,0 +1,6 @@
+
+payload:
+  # Wi-Fi Calling DE
+  # 德国 SIM 卡 Wi-Fi Calling 配置规则
+
+  - DOMAIN-SUFFIX,epdg.epc.mnc002.mcc262.pub.3gppnetwork.org
