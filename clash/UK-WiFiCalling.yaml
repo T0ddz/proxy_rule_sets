@@ -1,3 +1,4 @@
+payload:
   # Vodafone UK
   - DOMAIN-SUFFIX,entsrv-uk.vodafone.com
   - DOMAIN-SUFFIX,vuk-gto.prod.ondemandconnectivity.com
